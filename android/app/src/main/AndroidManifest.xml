@@ -27,6 +27,23 @@
             android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
+
+        <!-- Widget Providers -->
+        <receiver android:name=".widgets.PrayerWidgetProvider" android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/prayer_widget_info" />
+        </receiver>
+
+        <receiver android:name=".widgets.TasbeehWidgetProvider" android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.rafiq.almomen.widgets.ACTION_INCREMENT" />
+                <action android:name="com.rafiq.almomen.widgets.ACTION_RESET" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/tasbeeh_widget_info" />
+        </receiver>
     </application>
 
     <!-- Permissions -->
