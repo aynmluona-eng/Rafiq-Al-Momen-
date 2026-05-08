@@ -5,6 +5,9 @@ import { ZakatCalculator } from './ZakatCalculator';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage, Language } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
+import { registerPlugin, Capacitor } from '@capacitor/core';
+
+const WidgetPlugin = registerPlugin('WidgetPlugin');
 
 export const quranRecitersList = [
   { id: 'ar.alafasy', name: 'مشاري العفاسي' },
@@ -176,6 +179,7 @@ export const Settings: React.FC = () => {
     };
 
     const handleInstallPWA = async () => {
+        if (Capacitor.isNativePlatform()) return;
         if (installPrompt) {
             installPrompt.prompt();
             const { outcome } = await installPrompt.userChoice;
@@ -184,6 +188,19 @@ export const Settings: React.FC = () => {
             alert('لإضافة التطبيق كـ ويدجت/تطبيق على شاشتك الرئيسية، اضغط على زر "المشاركة" (Share) في متصفحك ثم اختر "إضافة إلى الشاشة الرئيسية" (Add to Home Screen).');
         }
     };
+
+    const handleAddWidget = async (type: string) => {
+        if (Capacitor.isNativePlatform()) {
+            try {
+                await WidgetPlugin.addWidget({ type });
+            } catch (error: any) {
+                alert(error.message || 'حدث خطأ أثناء إضافة الويدجيت');
+            }
+        } else {
+            handleInstallPWA();
+        }
+    };
+
 
     useEffect(() => {
         try {
@@ -458,7 +475,7 @@ export const Settings: React.FC = () => {
                             </div>
 
                             <div className="pt-2 space-y-3">
-                                <button className="w-full flex items-center justify-between bg-white dark:bg-[#1f2937] p-3 rounded-xl hover:bg-black/5 transition" onClick={handleInstallPWA}>
+                                <button className="w-full flex items-center justify-between bg-white dark:bg-[#1f2937] p-3 rounded-xl hover:bg-black/5 transition" onClick={() => handleAddWidget('prayer')}>
                                     <div className="flex items-center gap-3">
                                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
                                             <div className="grid grid-cols-2 gap-1 w-6 h-6">
@@ -471,7 +488,7 @@ export const Settings: React.FC = () => {
                                     <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg leading-none pb-0.5">+</div>
                                 </button>
                                 
-                                <button className="w-full flex items-center justify-between bg-white dark:bg-[#1f2937] p-3 rounded-xl hover:bg-black/5 transition" onClick={handleInstallPWA}>
+                                <button className="w-full flex items-center justify-between bg-white dark:bg-[#1f2937] p-3 rounded-xl hover:bg-black/5 transition" onClick={() => handleAddWidget('prayer')}>
                                     <div className="flex items-center gap-3">
                                         <div className="w-16 h-12 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20">
                                             <div className="w-10 h-3 bg-primary/40 rounded-sm"></div>
@@ -481,7 +498,7 @@ export const Settings: React.FC = () => {
                                     <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg leading-none pb-0.5">+</div>
                                 </button>
 
-                                <button className="w-full flex items-center justify-between bg-white dark:bg-[#1f2937] p-3 rounded-xl hover:bg-black/5 transition" onClick={handleInstallPWA}>
+                                <button className="w-full flex items-center justify-between bg-white dark:bg-[#1f2937] p-3 rounded-xl hover:bg-black/5 transition" onClick={() => handleAddWidget('prayer')}>
                                     <div className="flex items-center gap-3">
                                         <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 flex-col gap-1 px-2">
                                             <div className="w-full h-2 bg-primary/40 rounded-sm"></div>
@@ -491,6 +508,7 @@ export const Settings: React.FC = () => {
                                         <span className="font-bold text-sm text-text-main">إضافة ويدجت كبير</span>
                                     </div>
                                     <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg leading-none pb-0.5">+</div>
+
                                 </button>
                             </div>
                         </div>
