@@ -39,7 +39,7 @@ jobs:
       - name: Build Release APK
         run: |
           cd android
-          keytool -genkey -v -keystore release.keystore -alias rafiq -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Rafiq, OU=Al Momen, O=Rafiq, L=City, ST=State, C=US"
+          keytool -genkey -v -keystore app/release.keystore -alias rafiq -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Rafiq, OU=Al Momen, O=Rafiq, L=City, ST=State, C=US"
           gradle wrapper
           chmod +x gradlew
           ./gradlew assembleRelease -PMYAPP_RELEASE_STORE_FILE=release.keystore -PMYAPP_RELEASE_STORE_PASSWORD=password -PMYAPP_RELEASE_KEY_ALIAS=rafiq -PMYAPP_RELEASE_KEY_PASSWORD=password
@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: keystore
-          path: android/release.keystore
+          path: android/app/release.keystore
