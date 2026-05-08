@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Amiri+Quran&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #8A9E59;
+  --color-primary-light: #A3B18A;
+  --color-primary-dark: #708238;
+  --color-secondary: #D8B472;
+  --color-background: #FCFBFA;
+  --color-surface: #FFFFFF;
+  --color-text-main: #2C3A2A;
+  --color-text-muted: #8E9B8C;
+
+  --font-sans: "Tajawal", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-quran: "Amiri Quran", serif;
+}
+
+@layer base {
+  :root {
+    --color-primary: #8A9E59;
+    --color-primary-light: #A3B18A;
+    --color-primary-dark: #708238;
+    --color-secondary: #D8B472;
+    --color-background: #FCFBFA;
+    --color-surface: #FFFFFF;
+    --color-text-main: #2C3A2A;
+    --color-text-muted: #8E9B8C;
+  }
+
+  .dark {
+    --color-primary: #9FB074;
+    --color-primary-light: #B8C593;
+    --color-primary-dark: #8A9E59;
+    --color-secondary: #EADD99;
+    --color-background: #0B110E;
+    --color-surface: #141F1A;
+    --color-text-main: #EDF1ED;
+    --color-text-muted: #93A197;
+  }
+
+  body {
+    @apply antialiased text-text-main;
+    background-color: var(--color-background);
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.glass-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(138, 158, 89, 0.1); /* Primary with opacity */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(138, 158, 89, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.dark-glass-card {
+  background: rgba(138, 158, 89, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass-nav {
+  background: var(--color-surface);
+  border-top: 1px solid rgba(138, 158, 89, 0.2);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+}
+
+@layer utilities {
+  .pt-safe {
+    padding-top: max(env(safe-area-inset-top, 24px), 24px);
+  }
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom, 24px), 24px);
+  }
+  .mb-safe {
+    margin-bottom: max(env(safe-area-inset-bottom, 24px), 24px);
+  }
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(138, 158, 89, 0.1);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 20px rgba(138, 158, 89, 0.05);
+  will-change: transform;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

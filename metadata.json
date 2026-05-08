@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Remix: Remix: Remix: رفيق المؤمن | Al-Mu’min Companion",
+  "description": "A professional, mobile-first Islamic web companion providing prayer times, Qibla direction, Quran reading, daily Athkar, and more.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
