@@ -41,8 +41,7 @@ public class PrayerWidgetProvider extends AppWidgetProvider {
 
         views.setTextViewText(R.id.text_next_prayer_name, "صلاة العصر");
         views.setTextViewText(R.id.text_countdown, "بقي 01:20:00");
-        views.setTextViewText(R.id.text_athkar, "«سبحان الله وبحمده»");
-        views.setTextViewText(R.id.text_hijri_date, "14 رمضان 1446");
+        views.setTextViewText(R.id.text_date, "14 رمضان 1446");
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
